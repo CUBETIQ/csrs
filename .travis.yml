@@ -64,7 +64,7 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    repo: csrs
+    repo: CUBETIQ/csrs
 env:
   global:
     secure: T7p7SMSsOz/YhawHHkmB4wnOb924+rHEmI2BXA/je96GhbcKEV2noB0blaCsbr7Km6KGXZ6zbvIpNUV70GLtDLjQptP3/usn58SCaUCgj+2r/XGc8QgisUfqIklA+pS7uqgv1wm7Lwpa5MXNx6YiHhavGxo9glbc33P2q/sMk+L8+RH4qSRYR/fTMjki19puGqN4Gc6u6NZ2xZ7FWRfJmmj3zO6W1jA5sDbl5RMPROkpOhoJYtjXByB/VaEVxlDEoeo04GEsFT+ZeLER7T9Zum01oGRx3uTJEegqmsVNyRMxsi2GiCqipVJMxkDMiDYmyur9WVKXd1tipdR+Vf4vJbSJM4kVihFjD1Seom8mZXJYdS/vZ/v7P6g8nlos7ncDS7NtsmFkDOdaMN3HryDyxJx+eDnG5B/QZ5yGxEQVqC9tE4NPxaITVbcVkngfbeksgyMXg+LxaBKDabhncDPmmjHTc7lBph/vqmgPSDh+OmW5tuPNcMw/NelYMgkDCV8reegX3CsbLIBS8XIyjJZtG3URP9wl1BYDk/j23StzKYpNI1/4M5SoSlV6Ktb/5IzEF2IhhiESeMAbwpTvv9LgDT2iIsdyRVKPQoIg0tTZxHAToD+S8qmqfo4Vo0jhnHGsoWKHldv88pIaC1hzP6HqvhaBMBxHqGV8dXnOMbdBN2U=
