@@ -5,6 +5,10 @@ authors = ["Sambo Chea <sombochea@cubetiqs.com>"]
 edition = "2018"
 description = "CUBETIQ Syncer for database tools"
 license = "MIT"
+repository = "https://github.com/CUBETIQ/csrs.git"
+keywords = ["rust-cli", "cubetiq-cli", "tools", "clap"]
+categories = ["cli", "tools"]
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
