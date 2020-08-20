@@ -1,13 +1,13 @@
 [package]
 name = "csrs"
-version = "0.1.1-dev"
+version = "0.1.2-dev"
 authors = ["Sambo Chea <sombochea@cubetiqs.com>"]
 edition = "2018"
 description = "CUBETIQ Syncer for database tools and internal tool for the team in the company."
 license = "MIT"
 repository = "https://github.com/CUBETIQ/csrs.git"
 keywords = ["rust-cli", "cubetiq-cli", "tools", "clap"]
-categories = ["cli", "tools"]
+categories = ["command-line-interface", "command-line-utilities"]
 readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
