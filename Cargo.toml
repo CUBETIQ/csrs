@@ -1,9 +1,9 @@
 [package]
 name = "csrs"
-version = "0.1.0"
+version = "0.1.1-dev"
 authors = ["Sambo Chea <sombochea@cubetiqs.com>"]
 edition = "2018"
-description = "CUBETIQ Syncer for database tools"
+description = "CUBETIQ Syncer for database tools and internal tool for the team in the company."
 license = "MIT"
 repository = "https://github.com/CUBETIQ/csrs.git"
 keywords = ["rust-cli", "cubetiq-cli", "tools", "clap"]
