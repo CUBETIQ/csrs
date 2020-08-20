@@ -1,4 +1,70 @@
-# .travis.yml
+os:
+- linux
 language: rust
 rust:
-  - stable
+- stable
+cache:
+- apt
+matrix:
+  include:
+  - env:
+    - NAME=csrs
+    - TARGET=arm-unknown-linux-gnueabihf
+    - LINKER=arm-linux-gnueabihf-gcc
+    - PACKAGE=$NAME-rpi2.tar.gz
+    addons:
+      apt:
+        packages: &1
+        - gcc-arm-linux-gnueabihf
+        - libc6-armhf-cross
+        - libc6-dev-armhf-cross
+  - env:
+    - NAME=csrs
+    - TARGET=armv7-unknown-linux-gnueabihf
+    - LINKER=arm-linux-gnueabihf-gcc
+    - PACKAGE=$NAME-rpi3.tar.gz
+    addons:
+      apt:
+        packages: *1
+  - env:
+    - NAME=csrs
+    - TARGET=i686-unknown-linux-gnu
+    - PACKAGE=$NAME-i686.tar.gz
+    addons:
+      apt:
+        packages:
+        - gcc-multilib
+  - env:
+    - NAME=csrs
+    - TARGET=x86_64-unknown-linux-gnu
+    - PACKAGE=$NAME-x86_64.tar.gz
+install:
+- export PATH="$PATH:$HOME/.cargo/bin"
+- rustup target add $TARGET || true
+- |
+  if [ -n "$LINKER" ]; then
+    mkdir -p ~/.cargo
+    echo >> ~/.cargo/config
+    echo "[target.$TARGET]" >> ~/.cargo/config
+    echo "linker = \"$LINKER\"" >> ~/.cargo/config
+  fi
+script:
+- |
+  if [ $TARGET = "x86_64-unknown-linux-gnu" ]; then
+    cargo test
+  fi
+- cargo build --target $TARGET --verbose --release
+before_deploy:
+- tar -czf $PACKAGE -C target/$TARGET/release/ $NAME
+deploy:
+  provider: releases
+  api_key:
+    secure: $API_SECRET_ENV
+  file: "${PACKAGE}"
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: csrs
+env:
+  global:
+    secure: T7p7SMSsOz/YhawHHkmB4wnOb924+rHEmI2BXA/je96GhbcKEV2noB0blaCsbr7Km6KGXZ6zbvIpNUV70GLtDLjQptP3/usn58SCaUCgj+2r/XGc8QgisUfqIklA+pS7uqgv1wm7Lwpa5MXNx6YiHhavGxo9glbc33P2q/sMk+L8+RH4qSRYR/fTMjki19puGqN4Gc6u6NZ2xZ7FWRfJmmj3zO6W1jA5sDbl5RMPROkpOhoJYtjXByB/VaEVxlDEoeo04GEsFT+ZeLER7T9Zum01oGRx3uTJEegqmsVNyRMxsi2GiCqipVJMxkDMiDYmyur9WVKXd1tipdR+Vf4vJbSJM4kVihFjD1Seom8mZXJYdS/vZ/v7P6g8nlos7ncDS7NtsmFkDOdaMN3HryDyxJx+eDnG5B/QZ5yGxEQVqC9tE4NPxaITVbcVkngfbeksgyMXg+LxaBKDabhncDPmmjHTc7lBph/vqmgPSDh+OmW5tuPNcMw/NelYMgkDCV8reegX3CsbLIBS8XIyjJZtG3URP9wl1BYDk/j23StzKYpNI1/4M5SoSlV6Ktb/5IzEF2IhhiESeMAbwpTvv9LgDT2iIsdyRVKPQoIg0tTZxHAToD+S8qmqfo4Vo0jhnHGsoWKHldv88pIaC1hzP6HqvhaBMBxHqGV8dXnOMbdBN2U=
