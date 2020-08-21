@@ -1,4 +1,8 @@
-use clap::{Arg, App};
+use std::io::ErrorKind;
+use std::path::Path;
+use std::process::Command;
+
+use clap::{App, Arg};
 
 fn main() {
     let matches = App::new("CUBETIQ Syncer")
@@ -30,5 +34,46 @@ fn main() {
         Some(s) => {
             println!("Your app id is: {}", s);
         }
+    }
+
+    let _b = check_mysqldump();
+    println!("MySQL Dump is {}", _b);
+    let _b1 = check_pg_dump();
+    println!("Postgres Dump is {}", _b1);
+}
+
+fn check_is_windows() -> bool {
+    return cfg!(windows)
+}
+
+fn check_mysqldump() -> bool {
+    let mut mysqldump_file = "mysqldump".to_owned();
+    if check_is_windows() {
+        mysqldump_file.push_str(".exe");
+    }
+    return match Command::new(mysqldump_file).spawn() {
+        Ok(_) => true,
+        Err(e) => {
+            if let _not_found = e.kind() {
+                println!("`mysqldump` not found to execute, please add it into PATH!");
+            }
+            false
+        },
+    }
+}
+
+fn check_pg_dump() -> bool {
+    let mut pg_dump_filename = "pg_dump".to_owned();
+    if check_is_windows() {
+        pg_dump_filename.push_str(".exe");
+    }
+    return match Command::new(pg_dump_filename).spawn() {
+        Ok(_) => true,
+        Err(e) => {
+            if let _not_found = e.kind() {
+                println!("`pg_dump` not found to execute, please add it into PATH!");
+            }
+            false
+        },
     }
 }
